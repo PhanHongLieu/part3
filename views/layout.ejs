@@ -17,7 +17,11 @@
           <li class="nav-item"><a class="nav-link" href="/suppliers">Nhà cung cấp</a></li>
           <% if (currentUser) { %>
             <li class="nav-item"><span class="nav-link">👋 <%= currentUser.username %></span></li>
-            <li class="nav-item"><a class="nav-link" href="/auth/logout">Đăng xuất</a></li>
+            <li class="nav-item">
+              <form action="/auth/logout" method="post" style="display:inline">
+                <button type="submit" class="btn btn-link nav-link" style="display:inline; cursor:pointer">Đăng xuất</button>
+              </form>
+            </li>
           <% } else { %>
             <li class="nav-item"><a class="nav-link" href="/auth/login">Đăng nhập</a></li>
             <li class="nav-item"><a class="nav-link" href="/auth/register">Đăng ký</a></li>
