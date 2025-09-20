@@ -1,0 +1,45 @@
+<h1 class="mb-4 text-center">🏢 Danh sách nhà cung cấp</h1>
+
+<% if (currentUser) { %>
+  <div class="mb-3 text-end">
+    <a href="/suppliers/new" class="btn btn-success">+ Thêm nhà cung cấp</a>
+  </div>
+<% } %>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
+      <tr class="text-center">
+        <th>Tên</th>
+        <th>Địa chỉ</th>
+        <th>Số điện thoại</th>
+        <% if (currentUser) { %><th>Hành động</th><% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (suppliers.length === 0) { %>
+        <tr>
+          <td colspan="<%= currentUser ? 4 : 3 %>" class="text-center text-muted">
+            Chưa có nhà cung cấp nào.
+          </td>
+        </tr>
+      <% } else { %>
+        <% suppliers.forEach(s => { %>
+          <tr>
+            <td><%= s.name %></td>
+            <td><%= s.address %></td>
+            <td><%= s.phone %></td>
+            <% if (currentUser) { %>
+              <td class="text-center">
+                <a href="/suppliers/<%= s._id %>/edit" class="btn btn-sm btn-warning">✏️ Sửa</a>
+                <form method="post" action="/suppliers/<%= s._id %>?_method=DELETE" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này?')">🗑️ Xóa</button>
+                </form>
+              </td>
+            <% } %>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</div>

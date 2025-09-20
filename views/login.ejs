@@ -1,0 +1,28 @@
+<h1 class="mb-4 text-center">🔑 Đăng nhập</h1>
+
+<% if (typeof error !== 'undefined') { %>
+  <div class="alert alert-danger text-center"><%= error %></div>
+<% } %>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm p-4">
+      <form method="post" action="/auth/login">
+        <div class="mb-3">
+          <label for="username" class="form-label">Tên đăng nhập</label>
+          <input type="text" class="form-control" id="username" name="username" required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Mật khẩu</label>
+          <input type="password" class="form-control" id="password" name="password" required />
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </div>
+      </form>
+    </div>
+    <p class="mt-3 text-center">
+      Bạn chưa có tài khoản? <a href="/auth/register">Đăng ký</a>
+    </p>
+  </div>
+</div>

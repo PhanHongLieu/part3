@@ -1,0 +1,45 @@
+<h1 class="mb-4">🎉 Chào mừng đến với cửa hàng</h1>
+
+<!-- Form tìm kiếm -->
+<div class="card shadow-sm p-4 mb-4">
+  <form class="row g-3 align-items-center" action="/products" method="get">
+    <div class="col-md-6">
+      <input type="text" name="q" class="form-control" placeholder="🔍 Tìm sản phẩm theo tên" />
+    </div>
+    <div class="col-md-4">
+      <select name="supplier" class="form-select">
+        <option value="">-- Tất cả nhà cung cấp --</option>
+        <% if (typeof suppliers !== 'undefined') { %>
+          <% suppliers.forEach(s => { %>
+            <option value="<%= s._id %>"><%= s.name %></option>
+          <% }) %>
+        <% } %>
+      </select>
+    </div>
+    <div class="col-md-2 d-grid">
+      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+  </form>
+</div>
+
+<!-- Danh sách sản phẩm -->
+<h2 class="mb-3">📦 Sản phẩm nổi bật</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <% if (products.length === 0) { %>
+    <div class="col">
+      <div class="alert alert-warning">Không tìm thấy sản phẩm nào.</div>
+    </div>
+  <% } %>
+  <% products.forEach(p => { %>
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><%= p.name %></h5>
+          <p class="card-text">💵 Giá: <strong><%= p.price %></strong></p>
+          <p class="card-text">📦 Số lượng: <%= p.quantity %></p>
+          <p class="card-text text-muted">🏭 Nhà cung cấp: <%= p.supplier ? p.supplier.name : 'N/A' %></p>
+        </div>
+      </div>
+    </div>
+  <% }) %>
+</div>

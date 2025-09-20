@@ -1,0 +1,67 @@
+<h1 class="mb-4 text-center">📦 Danh sách sản phẩm</h1>
+
+<!-- Search form -->
+<form method="get" action="/products" class="row g-2 mb-4">
+  <div class="col-md-4">
+    <input type="text" name="q" value="<%= q || '' %>" placeholder="Tìm theo tên" class="form-control" />
+  </div>
+  <div class="col-md-4">
+    <select name="supplier" class="form-select">
+      <option value="">Tất cả nhà cung cấp</option>
+      <% suppliers.forEach(s => { %>
+        <option value="<%= s._id %>" <%= selectedSupplier == s._id ? 'selected' : '' %>>
+          <%= s.name %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-primary w-100">🔍 Tìm kiếm</button>
+  </div>
+  <% if (currentUser) { %>
+    <div class="col-md-2">
+      <a href="/products/new" class="btn btn-success w-100">+ Thêm sản phẩm</a>
+    </div>
+  <% } %>
+</form>
+
+<!-- Products table -->
+<div class="table-responsive">
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
+      <tr class="text-center">
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Nhà cung cấp</th>
+        <% if (currentUser) { %><th>Hành động</th><% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (products.length === 0) { %>
+        <tr>
+          <td colspan="<%= currentUser ? 5 : 4 %>" class="text-center text-muted">
+            Không tìm thấy sản phẩm nào.
+          </td>
+        </tr>
+      <% } else { %>
+        <% products.forEach(p => { %>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= p.price %></td>
+            <td><%= p.quantity %></td>
+            <td><%= p.supplier ? p.supplier.name : 'N/A' %></td>
+            <% if (currentUser) { %>
+              <td class="text-center">
+                <a href="/products/<%= p._id %>/edit" class="btn btn-sm btn-warning">✏️ Sửa</a>
+                <form method="post" action="/products/<%= p._id %>?_method=DELETE" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">🗑️ Xóa</button>
+                </form>
+              </td>
+            <% } %>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</div>
