@@ -1,19 +1,23 @@
+<div class="container mt-5">
+  <h2 class="mb-4">
+    <%= supplier._id ? '✏️ Chỉnh sửa nhà cung cấp' : '➕ Thêm nhà cung cấp' %>
+  </h2>
 
+  <form method="post" action="<%= supplier._id ? '/suppliers/' + supplier._id + '?_method=PUT' : '/suppliers' %>">
+    <div class="mb-3">
+      <label class="form-label">Tên</label>
+      <input type="text" class="form-control" name="name" value="<%= supplier.name || '' %>" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Địa chỉ</label>
+      <input type="text" class="form-control" name="address" value="<%= supplier.address || '' %>" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Số điện thoại</label>
+      <input type="text" class="form-control" name="phone" value="<%= supplier.phone || '' %>" />
+    </div>
 
-<h1><%= supplier._id ? 'Edit Supplier' : 'New Supplier' %></h1>
-
-<form method="post" action="<%= supplier._id ? '/suppliers/' + supplier._id + '?_method=PUT' : '/suppliers' %>">
-  <div>
-    <label>Name</label>
-    <input type="text" name="name" value="<%= supplier.name || '' %>" required />
-  </div>
-  <div>
-    <label>Address</label>
-    <input type="text" name="address" value="<%= supplier.address || '' %>" />
-  </div>
-  <div>
-    <label>Phone</label>
-    <input type="text" name="phone" value="<%= supplier.phone || '' %>" />
-  </div>
-  <button type="submit">Save</button>
-</form>
+    <button type="submit" class="btn btn-primary">💾 Lưu</button>
+    <a href="/suppliers" class="btn btn-secondary">⬅️ Quay lại</a>
+  </form>
+</div>

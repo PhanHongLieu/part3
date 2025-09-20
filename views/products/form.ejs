@@ -1,28 +1,36 @@
+<div class="container mt-5">
+  <h2 class="mb-4">
+    <%= product._id ? '✏️ Chỉnh sửa sản phẩm' : '➕ Thêm sản phẩm' %>
+  </h2>
 
-<h1><%= product._id ? 'Edit Product' : 'New Product' %></h1>
+  <form method="post" action="<%= product._id ? '/products/' + product._id + '?_method=PUT' : '/products' %>">
+    <div class="mb-3">
+      <label class="form-label">Tên sản phẩm</label>
+      <input type="text" class="form-control" name="name" value="<%= product.name || '' %>" required />
+    </div>
 
-<form method="post" action="<%= product._id ? '/products/' + product._id + '?_method=PUT' : '/products' %>">
-  <div>
-    <label>Name</label>
-    <input type="text" name="name" value="<%= product.name || '' %>" required />
-  </div>
-  <div>
-    <label>Price</label>
-    <input type="number" name="price" value="<%= product.price || 0 %>" />
-  </div>
-  <div>
-    <label>Quantity</label>
-    <input type="number" name="quantity" value="<%= product.quantity || 0 %>" />
-  </div>
-  <div>
-    <label>Supplier</label>
-    <select name="supplier" required>
-      <% suppliers.forEach(s => { %>
-        <option value="<%= s._id %>" <%= product.supplier && product.supplier.equals(s._id) ? 'selected' : '' %>>
-          <%= s.name %>
-        </option>
-      <% }) %>
-    </select>
-  </div>
-  <button type="submit">Save</button>
-</form>
+    <div class="mb-3">
+      <label class="form-label">Giá</label>
+      <input type="number" step="0.01" class="form-control" name="price" value="<%= product.price || 0 %>" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Số lượng</label>
+      <input type="number" class="form-control" name="quantity" value="<%= product.quantity || 0 %>" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Nhà cung cấp</label>
+      <select class="form-select" name="supplier" required>
+        <% suppliers.forEach(s => { %>
+          <option value="<%= s._id %>" <%= product.supplier && product.supplier.equals(s._id) ? 'selected' : '' %>>
+            <%= s.name %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Lưu</button>
+    <a href="/products" class="btn btn-secondary">⬅️ Quay lại</a>
+  </form>
+</div>
